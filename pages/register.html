@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="heading">
+            <h2 class="center-align" style="font-family:fantasy !important" >Fakebook</h2>
+        </div>
+        <div class="content ">
+
+            <div class="input-content registeration-content ">
+                <div class="heading">
+                    <h5 class="center-align">Sign Up to fakebook</h5>
+                </div>
+
+                <form class="col s12 l12">
+                    <div class="row row-input ">
+                        <div class="input-field col s12  l12">
+                            <img class="material-icons prefix icons" src="../images/user.svg" alt="">
+
+                            <!-- <i class="material-icons prefix">account_circle</i> -->
+                            <input id="username" type="text" class="validate">
+                            <label for="username">Username</label>
+                        </div>
+                    </div>
+
+                    <div class="row row-input ">
+                        <div class="input-field col s6  l6">
+                            <img class="material-icons prefix icons" src="../images/user.svg" alt="">
+                            <!-- <i class="material-icons prefix">account_circle</i> -->
+                            <input id="r-email" type="text" class="validate">
+                            <label for="r-email">Email</label>
+                        </div>
+                        <div class="input-field col s6 l6">
+                            <img class="material-icons prefix iconsphone" src="../images/phone.svg">
+                            <!-- <i class="material-icons prefix">phone</i> -->
+                            <input id="phoneNumber" type="tel" class="validate ">
+                            <label for="phoneNumber">Telephone</label>
+                        </div>
+                    </div>
+                    <div class="row row-input">
+                        <div class="input-field col s12 l12">
+                            <img class="material-icons prefix icons" src="../images/lock.svg" alt="">
+
+                            <!-- <i class="material-icons prefix">lock</i> -->
+                            <input id="password" type="password" class="validate ">
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                    <div class="row row-input">
+                        <div class="file-field input-field col l12 s12">
+                            <div class="btn">
+                                <span>Picture</span>
+                                <input type="file" accept="image/*" id="profilePic">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row center-align">
+                        <button class="btn waves-effect waves-light login-btn" type="submit" name="action"
+                            id="register-btn">Register
+                            <!-- <i class="material-icons right ">send</i> -->
+                            <img class="material-icons prefix sendLogo" src="../images/send1.svg" alt="">
+
+                        </button>
+                    </div>
+                    <div class="registerLink center-align">
+                        <h6>Already Have Account?<a class="link" href="../index.html">Log In</a></span>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <script src="../app.js" type="module"></script>
+</body>
+
+</html>

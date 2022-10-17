@@ -1,0 +1,277 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    background-color: lavenderblush;
+}
+.link{
+    color: #19539D;
+    font-weight: bold;
+}
+.link:hover{
+    transition-duration: 0.5s;
+    border-bottom: 2px solid #19539D;
+}
+
+.btn{
+    background-color: #19539D !important;
+    
+}
+input:focus {
+    border-bottom:1px solid #19539D !important;
+}
+.input-field .prefix.active{
+    color: #19539D !important;
+}
+
+.input-field .prefix.active ~ label{
+    color: #19539D !important;
+}
+.content {
+    display: flex;
+    justify-content: center;
+}
+
+.input-content {
+    background-color: white;
+    border-radius: 7px;
+    width: 40%;
+    height: 60vh;
+}
+
+.row-input {
+    padding: 0 20px;
+}
+
+.login-btn {
+    width: 70%;
+    background-color: #19539D !important;
+    font-weight: bold;
+}
+
+
+form {
+    margin: 20px 0;
+}
+
+.registeration-content {
+    width: 40% !important;
+    height: 75vh !important;
+    padding-bottom: 25px !important;
+}
+
+.main {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.aside {
+    width: 20% !important;
+    height: 100vh;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.posting-content {
+    width: 60%;
+    height: 100%;
+}
+.user-box{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    width: 20%;
+    height: 100vh;
+}
+.heading{
+    color: #19539D;
+    font-weight: bold;
+}
+.user-box-head{
+    padding-bottom: 3px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+#users{
+    margin-top: 30px;
+}
+
+#users li{
+    list-style-type: none;
+    font-weight: 500;
+    font-size: 17px;
+    margin: 10px 35px;
+    display: flex;
+    align-items: center;
+    
+}
+#users li img{
+    margin-right:10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+
+}
+#pp {
+    width: 100%;
+    border-radius: 50px;
+    height: 100%;
+}
+
+#pppic {
+    margin: 5px 10px;
+    height: 50px;
+}
+
+.portal-nav {
+    background-color: lavenderblush;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+}
+
+#current-user {
+    color: #19539D !important;
+    font-weight: bold;
+}
+
+.logout-btn {
+    background-color: #19539D !important;
+    font-weight: bold;
+    border-radius: 7px !important;
+}
+
+#searchtest {
+    width: 800px;
+    border: 2px solid #19539D;
+    border-radius: 25px;
+    font-size: 17px;
+    padding: 0 20px;
+}
+.div-nav> a{
+    height: 100%;
+}
+
+.div-nav a span{
+    height: 100%;
+    font-weight: bold;
+    position: relative;
+    bottom: 20%;
+    left: 5%;
+    color: #19539D !important;
+}
+.searchbar {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: relative;
+
+
+}
+
+.searchbar button {
+    background-color: #19539D;
+    border: none;
+    color: white;
+    height: 71%;
+    border-radius: 25px;
+    width: 50px;
+
+    position: absolute;
+    top: 13.3%;
+    right: 219.7px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.searchbar button:hover{
+    opacity: 0.7;
+}
+.searchbar button i{
+    width: 100%;
+    height: 45px !important;
+
+    position: absolute;
+    top: -15%;
+}
+
+
+
+
+.modal-content{
+    height: 400px;
+    margin: 20px 0;
+}
+
+.post-btn{
+    background-color: #19539D !important;
+    color: white !important;
+    font-weight: bold !important;
+    border-radius: 7px !important;
+}
+.createpost{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+   
+}
+.create-post-btn{
+    border-radius: 8px !important;
+    background-color: #19539D !important;
+    font-weight: bold;
+}
+.post{
+    margin: 20px 20px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    background-color: seashell;
+
+}
+
+.content-header{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+}
+
+#posting-pic{
+    margin: 0 10px 0 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 35px;
+}
+.posting-content{
+    padding: 5px 10px;
+}
+.post-main{
+    overflow-x: hidden;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px 0;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+
+}
+.posting-content h1,.posting-content h2,.posting-content h3{
+    margin: 0;
+    padding: 0;
+    font-size: 28px;
+}
+
+
+
+.sendLogo{
+    float: right;
+    margin: 8px 0;
+    
+}
+
