@@ -42,6 +42,10 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 let unsubscribe;
 
+
+
+// ===========================Login Account=======================================
+
 const loginbtn = document.getElementById("login1-btn");
 if (loginbtn) {
     loginbtn.addEventListener("click", (e) => {
@@ -65,6 +69,10 @@ if (loginbtn) {
 
 
 }
+// ==========================================================================================
+
+
+//===================================  Register Account ====================================
 
 const registerbtn = document.getElementById("register-btn");
 if (registerbtn) {
@@ -76,12 +84,10 @@ if (registerbtn) {
         const password = document.getElementById("password");
         const phoneNumber = document.getElementById("phoneNumber");
 
-        console.log("testing register")
         const auth = getAuth();
         createUserWithEmailAndPassword(auth, email.value, password.value)
             .then(async (userCredential) => {
                 const uid = userCredential.user.uid;
-                console.log(uid)
 
                 let firstdoc = doc(db, "users", uid);
                 await setDoc(firstdoc, {
@@ -92,10 +98,7 @@ if (registerbtn) {
                 const profilePic = document.getElementById("profilePic")
                 let file = profilePic.files[0];
                 let url = await uploadFiles(file);
-                // console.log(user.email)
                 const testdoc = doc(db, "users", uid);
-                console.log(testdoc)
-                console.log(url)
                 await updateDoc(testdoc, {
                     profile: url,
                 });
@@ -110,6 +113,7 @@ if (registerbtn) {
 
     registerbtn.addEventListener("click", register)
 }
+// ====================================================================================
 
 window.onload = () => {
     const auth = getAuth();
@@ -124,6 +128,9 @@ window.onload = () => {
         };
     });
 };
+
+
+//============================ Getting Data from firestore================================
 const getUserFromDatabase = async (uid) => {
     const docRef = doc(db, "users", uid)
     const docSnap = await getDoc(docRef);
@@ -132,8 +139,7 @@ const getUserFromDatabase = async (uid) => {
         let profile = document.getElementById("pp")
         profile.src = docSnap.data().profile
         currentUser.innerHTML = `${docSnap.data().name}`
-        // console.log(docSnap.data());
-        getAllUser(docSnap.data().email, uid, docSnap.data().name);
+        getAllUser(docSnap.data().email);
     } else {
         console.log("no such document")
     }
@@ -145,7 +151,7 @@ const getUserFromDatabase = async (uid) => {
 
 
 
-
+//==================================  Uploading Image ===================================
 const uploadFiles = (file) => {
     return new Promise((resolve, reject) => {
         const storage = getStorage();
@@ -167,6 +173,20 @@ const uploadFiles = (file) => {
                         console.log("Upload is running");
                         break;
                 }
+                if (progress == 100) {
+                    Swal.fire(
+                        'Good job!',
+                        'Account Created',
+                        'success'
+                    )
+                } else {
+                    Swal.fire(
+                        'Please Wait',
+                        'it may take sometime',
+                        'success'
+                    )
+
+                }
             },
             (error) => {
                 reject(error);
@@ -179,10 +199,12 @@ const uploadFiles = (file) => {
         );
     });
 };
+// ==================================================================
 
 
 
-const getAllUser = async (email, currentId, currentName) => {
+// ================================GETTING ALL USERS ====================================
+const getAllUser = async (email) => {
     const q = query(collection(db, "users"), where("email", "!=", email));
     const querySnapshot = await getDocs(q);
     let users = document.getElementById("users")
@@ -191,25 +213,31 @@ const getAllUser = async (email, currentId, currentName) => {
 
     });
 }
+// ========================================================================
 
 
+
+
+// ================================Log Out=======================================
 const logout = document.getElementById("logOut-btn");
-if(logout){
+if (logout) {
 
     logout.addEventListener("click", () => {
         window.location = "../index.html"
     });
-    
+
 }
 
-    
-    var quill = new Quill("#editor", {
-        theme: "snow",
-    });
-    
+// ======================================================================
+
+
+var quill = new Quill("#editor", {
+    theme: "snow",
+});
 
 
 
+// ========================== Creating Post ========================================
 let CreatePost = () => {
     // if (unsubscribe) {
     //     unsubscribe();
@@ -222,6 +250,7 @@ let CreatePost = () => {
             const docSnap = await getDoc(docRef)
             console.log(docSnap.data())
             var delta = quill.root.innerHTML
+            //  ========== Adding Post into firestore ====================================
             await addDoc(collection(db, "posts"), {
                 sender_name: docSnap.data().name,
                 post: delta,
@@ -237,33 +266,67 @@ let CreatePost = () => {
 }
 
 
+const createPost = document.getElementById("getText");
+if (createPost) {
+    createPost.addEventListener("click", CreatePost)
+}
+
+
+// ==============================Loading Post on load===========================
+
 let loadAllPost = () => {
-    console.log("testing loadAllPost")
     const q = query(
         collection(db, "posts"),
         orderBy("timestamp", "asc")
     )
-    console.log(q)
     let post = document.getElementById("post")
     unsubscribe = onSnapshot(q, (querySnapshot) => {
         post.innerHTML = ""
-        console.log(unsubscribe)
-        // allMessages.innerHTML = "";
+
         querySnapshot.forEach((doc) => {
+            let time = doc.data().timestamp.toDate()
 
             post.innerHTML += `<div class="post-main">
             <div class="content-header">
+            <div class="testing">
             <img src="${doc.data().sender_pic}" id="posting-pic"/>
-            <h6 style="font-weight:bold">${doc.data().sender_name}</h6>
+            <h6 style="font-weight:bold">${doc.data().sender_name}</h6></div>
+            <p style="float:right !important;font-size:10px">${doc.data().timestamp.toDate().toDateString()}</p>
             </div>
-            <div class="posting-content">${doc.data().post}<div>
+            
+            <div class="posting-content">${doc.data().post}
+            </div><hr>
+            <div class=feedback-btns>
+            <button onclick = "likePost()">Like</button>
+            <button onclick="commentPost()">Comment</button>
+            </div>
             </div>`;
         });
     });
 }
-
 loadAllPost()
 
-const createPost = document.getElementById("getText");
-createPost.addEventListener("click", CreatePost)
+let like;
+//  =============================== Post Like ================================
 
+const likePost = async () => {
+    const auth = getAuth();
+    const docRef = doc(db, "users", auth.currentUser.uid)
+    const docSnap = await getDoc(docRef)
+    const like = `${docSnap.data().name} likes this`
+    console.log(like)
+}
+
+window.likePost = likePost
+
+
+// ===========================================================
+
+
+const commentPost = () => {
+    console.log("test")
+}
+
+
+
+window.commentPost = commentPost;
