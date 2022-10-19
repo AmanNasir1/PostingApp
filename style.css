@@ -77,15 +77,16 @@ form {
 .aside {
     width: 25% !important;
     height: 100vh;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
 }
 
 .posting-content {
     width: 100%;
     height: 100%;
+    margin-bottom:15px;
 }
 .user-box{
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
     width: 25%;
     height: 100vh;
 }
@@ -96,6 +97,10 @@ form {
 .user-box-head{
     padding-bottom: 3px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 #users{
     margin-top: 30px;
@@ -266,12 +271,22 @@ form {
 
 
 }
-.posting-content h1,.posting-content h2,.posting-content h3{
+.posting-content h1{
+    margin: 0;
+    padding: 0;
+    font-size: 32px;
+}
+
+.posting-content h2{
     margin: 0;
     padding: 0;
     font-size: 28px;
 }
-
+.posting-content h3{
+    margin: 0;
+    padding: 0;
+    font-size: 25px;
+}
 
 
 .sendLogo{
@@ -279,11 +294,11 @@ form {
     margin: 8px 0;
     
 }
-hr{
-    margin-top: 25px;
+.likenames{
+    margin-top: 45px !important;
 }
 
-.feedback-btns button{
+.feedback-btns{
     cursor: pointer;
     width: 100px;
     height: 30px;
@@ -295,13 +310,13 @@ hr{
     border: 1px solid #19539D;
 }
 
-.feedback-btns button:focus{
+.feedback-btns:focus{
     background-color: white !important;
     color: #19539D !important; 
     border: 1px solid #19539D;
 }
 
-.feedback-btns button:hover{
+.feedback-btns:hover{
     background-color: #19539D;
     color: white;
     transition-duration: 0.5s;

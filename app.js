@@ -20,7 +20,9 @@ import {
     onSnapshot,
     updateDoc,
     where,
-    orderBy
+    orderBy,
+    arrayUnion,
+    arrayRemove,
 } from "https://www.gstatic.com/firebasejs/9.12.0/firebase-firestore.js";
 import {
     getStorage,
@@ -256,7 +258,9 @@ let CreatePost = () => {
                 post: delta,
                 sender_pic: docSnap.data().profile,
                 sender_id: uid,
-                timestamp: new Date()
+                timestamp: new Date(),
+                likes: [],
+                lastlike: ""
             })
 
         }
@@ -277,15 +281,14 @@ if (createPost) {
 let loadAllPost = () => {
     const q = query(
         collection(db, "posts"),
-        orderBy("timestamp", "asc")
+        orderBy("timestamp", "desc")
     )
+    const auth = getAuth()
     let post = document.getElementById("post")
     unsubscribe = onSnapshot(q, (querySnapshot) => {
         post.innerHTML = ""
 
         querySnapshot.forEach((doc) => {
-            let time = doc.data().timestamp.toDate()
-
             post.innerHTML += `<div class="post-main">
             <div class="content-header">
             <div class="testing">
@@ -295,38 +298,54 @@ let loadAllPost = () => {
             </div>
             
             <div class="posting-content">${doc.data().post}
-            </div><hr>
-            <div class=feedback-btns>
-            <button onclick = "likePost()">Like</button>
-            <button onclick="commentPost()">Comment</button>
             </div>
-            </div>`;
+            <span class="likenames">(${doc.data().likes.length})
+             ${doc.data().lastlike ? `${doc.data().lastlike} like this` : ""
+                } </span><hr> ${doc.data().likes.indexOf(auth.currentUser.uid) !== -1
+                    ? `<button class="feedback-btns" onclick="unLikePost('${doc.id}')">Unlike</button>`
+                    : `<button class="feedback-btns" onclick="likePost('${doc.id}')" >Like</button>`}
+                    </div>`
+
         });
     });
 }
 loadAllPost()
 
-let like;
 //  =============================== Post Like ================================
 
-const likePost = async () => {
-    const auth = getAuth();
-    const docRef = doc(db, "users", auth.currentUser.uid)
-    const docSnap = await getDoc(docRef)
-    const like = `${docSnap.data().name} likes this`
-    console.log(like)
+const likePost = async (id) => {
+
+    const auth = getAuth()
+    const likeRef = doc(db, "users", auth.currentUser.uid)
+    const likeSnap = await (getDoc(likeRef))
+    // console.log(doc.data().name)
+    // console.log(likeSnap.data())
+
+    const postRef = doc(db, "posts", id);
+    await updateDoc(postRef, {
+        likes: arrayUnion(auth.currentUser.uid),
+        lastlike: likeSnap.data().name
+
+    });
 }
 
+const unLikePost = async (id) => {
+    const auth = getAuth()
+    const postRef = doc(db, "posts", id);
+    await updateDoc(postRef, {
+        likes: arrayRemove(auth.currentUser.uid),
+    });
+};
 window.likePost = likePost
-
+window.unLikePost = unLikePost;
 
 // ===========================================================
 
 
-const commentPost = () => {
-    console.log("test")
-}
+// const commentPost = () => {
+//     console.log("test")
+// }
 
 
 
-window.commentPost = commentPost;
+// window.commentPost = commentPost;
